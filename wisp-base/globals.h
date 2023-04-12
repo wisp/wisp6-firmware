@@ -86,24 +86,6 @@
 #define WRITE_DATA_BLINK_LED    (0x00)
 #define WRITE_DATA_NEW_ID       (0x01)
 
-//Camera globals---------------------------------------------------------------------------------------------------------------------//
-#define CAPTURE_DONE            (0xCA)      // Means CAmera.
-#define CAPTURE_REQ             (0x35)      // CAmera bar. 0x35 = !(0xCA)
-#define CAMERA_TAG_ID           (0xCA)      // For gui to specify this is in camera mode.
-#define ROWS                    (122)
-#define COLUMNS                 (162)   // QQVGA format: 122*162
-#define IMAGE_SIZE              (19764) // It should be set based on the size of the selected format.
-#define IMAGE_DATA_TOBESENT     (19764)
-#define CAM_POWER_UP_CYCLE      (5000) // May be vary for each specific type of cameras.
-#define CAM_STAB_RECONF         (0) // Based on the amount of energy provided we should set it to as high as possible.
-#define SEQUENCE_END_REPEAT     (50)
-#define IMAGE_START_ADD         (0x7000)
-#define IMAGE_CAPTURE_DONE      (INFO_A)
-#define IMAGE_ADDRESS_TOSEND    (INFO_A + 2)
-#define IMAGE_LENGTH_SENT       (INFO_A + 4)
-#define IMAGE_SEQUENCE_COUNTER  (INFO_A + 6)
-#define INFO_A                  (0x1980)
-
 
 //MACROS_Camera----------------------------------------------------------------------------------------------------------------------------//
 #define DELAY_CYCLES(x)     int delay_counter = 0; while(delay_counter < x) delay_counter++

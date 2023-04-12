@@ -32,7 +32,7 @@
 //#pragma vector=TIMER0_A1_VECTOR       // ".int44" 0xFFE8 Timer0_A3 CC1-2, TA
 //#pragma vector=TIMER0_A0_VECTOR       // ".int45" 0xFFEA Timer0_A3 CC0
 #pragma vector=ADC12_VECTOR           // ".int46" 0xFFEC ADC
-#pragma vector=USCI_B0_VECTOR         // ".int47" 0xFFEE USCI B0 Receive/Transmit
+//#pragma vector=USCI_B0_VECTOR         // ".int47" 0xFFEE USCI B0 Receive/Transmit
 #pragma vector=USCI_A0_VECTOR         // ".int48" 0xFFF0 USCI A0 Receive/Transmit
 #pragma vector=WDT_VECTOR             // ".int49" 0xFFF2 Watchdog Timer
 #pragma vector=TIMER0_B1_VECTOR       // ".int50" 0xFFF4 Timer0_B7 CC1-6, TB

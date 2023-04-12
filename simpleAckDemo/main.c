@@ -57,6 +57,8 @@ void main(void) {
 
   WISP_init();
 
+  P4DIR |= BIT3;
+  P4OUT |= BIT3;
   // Register callback functions with WISP comm routines
   WISP_registerCallback_ACK(&my_ackCallback);
   WISP_registerCallback_READ(&my_readCallback);
@@ -86,7 +88,7 @@ void main(void) {
   wispData.epcBuf[8] = 0x00;        // Unused data field
   wispData.epcBuf[9] = 0x60;        // Tag hardware revision (5.1)
   wispData.epcBuf[10] = *((uint8_t*)INFO_WISP_TAGID+1); // WISP ID MSB: Pull from INFO seg
-  wispData.epcBuf[11] = *((uint8_t*)INFO_WISP_TAGID); // WISP ID LSB: Pull from INFO seg
+  wispData.epcBuf[11] = *((uint8_t*)INFO_WISP_TAGID); // WISP ID LSB: Pull from INFO seg.
 
   // Talk to the RFID reader.
   while (FOREVER) {

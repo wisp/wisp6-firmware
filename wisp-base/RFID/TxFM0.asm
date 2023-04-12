@@ -15,8 +15,11 @@
 ;/************************************************************************************************************************************/
 
 ;/INCLUDES----------------------------------------------------------------------------------------------------------------------------
-    .cdecls C,LIST, "../globals.h"
-    .cdecls C,LIST, "rfid.h"
+    .cdecls C,LIST
+    %{
+       #include "../globals.h"
+       #include "rfid.h"
+    %}
     .include "../internals/NOPdefs.asm"; Definitions of NOPx MACROs...
     .global TxClock, RxClock
 

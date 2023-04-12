@@ -13,9 +13,12 @@
 ;*/
 
 ;/INCLUDES----------------------------------------------------------------------------------------------------------------------------
-    .cdecls C,LIST, "../globals.h"
-    .cdecls C,LIST, "../Math/crc16.h"
-    .cdecls C,LIST, "rfid.h"
+    .cdecls C,LIST
+    %{
+       #include "../globals.h"
+       #include "../Math/crc16.h"
+       #include "rfid.h"
+    %}
 	.def  handleQuery, handleAck, handleQR, handleQA, handleReqRN, handleSelect
 	.global TxClock, RxClock
 

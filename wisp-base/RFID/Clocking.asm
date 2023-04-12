@@ -10,8 +10,11 @@
 ;*/
 
 ;/INCLUDES----------------------------------------------------------------------------------------------------------------------------
-    .cdecls C,LIST, "../globals.h"
-    .cdecls C,LIST, "rfid.h"
+    .cdecls C,LIST
+    %{
+       #include "../globals.h"
+       #include "rfid.h"
+    %}
 	.def  TxClock, RxClock
 
 TxClock:

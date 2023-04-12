@@ -8,7 +8,7 @@
 #ifndef APP_HDC2010_H_
 #define APP_HDC2010_H_
 #include "wisp-base.h"
-#include "i2c.h"
+
 
 #define TEMP_ADDR 0x40
 //Define Register Map
@@ -58,9 +58,9 @@
 #define FIVE_HZ         7
 
 
-
+void initI2C(void);
 void hdc2010_triggerMeasurement(void);          // Triggers a manual temperature/humidity reading
-
+void hdc2010_read(uint8_t* data);
 
 
 

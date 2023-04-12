@@ -8,13 +8,9 @@
  */
 
 #include "wisp-base.h"
-#include "App/i2c.h"
 #include "App/HDC2010.h"
 WISP_dataStructInterface_t wispData;
-uint8_t temp_lsb =0;
-uint8_t temp_msb =0;
-uint8_t humidity_lsb =0;
-uint8_t humidity_msb =0;
+uint8_t hdc_data[4] = {0, 0, 0, 0};
 
 /**
  * This function is called by WISP FW after a successful ACK reply
@@ -78,6 +74,9 @@ void main(void) {
 
   __delay_cycles(100);
 
+  P4DIR |= BIT3;                             //Turn on the RF switch
+  P4OUT |= BIT3;
+
   BITSET(PSENSORPWROUT , PIN_SENSORPWR);
   __delay_cycles(2000);
   // Register callback functions with WISP comm routines
@@ -93,22 +92,20 @@ void main(void) {
   WISP_setMode( MODE_READ | MODE_WRITE | MODE_USES_SEL);
   WISP_setAbortConditions(CMD_ID_READ | CMD_ID_WRITE | CMD_ID_ACK);
 
-  i2c_init();
-  hdc2010_triggerMeasurement();
-  temp_lsb = i2c_read (TEMP_LOW);
-  temp_msb = i2c_read(TEMP_HIGH);
-  humidity_lsb = i2c_read (HUMID_LOW);
-  humidity_msb = i2c_read(HUMID_HIGH);
+  initI2C();
+  hdc2010_triggerMeasurement();                //Trigger an measurement event and wait until the data is ready
+  hdc2010_read(hdc_data);                      // Save data in the array
+
 
 
 
 
   // Set up EPC
   wispData.epcBuf[0] = 0x0D;        // Tag type
-  wispData.epcBuf[1] = temp_lsb;           // temp_LSB
-  wispData.epcBuf[2] = temp_msb;           // temp_MSB
-  wispData.epcBuf[3] = humidity_lsb;       // humidity_LSB
-  wispData.epcBuf[4] = humidity_msb;       // humidity_MSB
+  wispData.epcBuf[1] = hdc_data[0]; // temp_LSB
+  wispData.epcBuf[2] = hdc_data[1]; // temp_MSB
+  wispData.epcBuf[3] = hdc_data[2]; // humidity_LSB
+  wispData.epcBuf[4] = hdc_data[3]; // humidity_MSB
   wispData.epcBuf[5] = 0;           // Unused data field
   wispData.epcBuf[6] = 0;           // Unused data field
   wispData.epcBuf[7] = 0x00;        // Unused data field
@@ -129,17 +126,12 @@ void main(void) {
     BITSET(CSCTL6 , ACLKREQEN);
 
     hdc2010_triggerMeasurement();
-
-    temp_lsb = i2c_read (TEMP_LOW);
-    temp_msb = i2c_read(TEMP_HIGH);
-    humidity_lsb = i2c_read (HUMID_LOW);
-    humidity_msb = i2c_read(HUMID_HIGH);
+    hdc2010_read(hdc_data);
 
 
-    wispData.epcBuf[1] = temp_lsb;               // temp_LSB
-    wispData.epcBuf[2] = temp_msb;               // temp_MSB
-    wispData.epcBuf[3] = humidity_lsb;           // humidity_LSB
-    wispData.epcBuf[4] = humidity_msb;           // humidity_MSB
-
+    wispData.epcBuf[1] = hdc_data[0];           // temp_LSB
+    wispData.epcBuf[2] = hdc_data[1];           // temp_MSB
+    wispData.epcBuf[3] = hdc_data[2];       // humidity_LSB
+    wispData.epcBuf[4] = hdc_data[3];       // humidity_MSB
   }
 }

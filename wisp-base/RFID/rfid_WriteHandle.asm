@@ -15,9 +15,12 @@
 ;*/
 ;/***********************************************************************************************************************************/
 
-    .cdecls C,LIST, "../globals.h"
-    .cdecls C,LIST, "../Math/crc16.h"
-    .cdecls C,LIST, "rfid.h"
+    .cdecls C,LIST
+    %{
+       #include "../globals.h"
+       #include "../Math/crc16.h"
+       #include "rfid.h"
+    %}
 
 R_writePtr	.set  R13   			;[0] ptr to which membank at which offset will be reading from
 R_handle	.set  R12				;[0] store inbound handle for Tx here.

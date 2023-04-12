@@ -169,15 +169,16 @@
 // Set as many as possible pins to output and drive them low
 #ifndef __ASSEMBLER__
 #define setupDflt_IO() \
+    P1DIR = 0xFE;\
+    P1OUT = 0x00;\
+    P2DIR = 0xF7;\
     P2OUT = 0x00;\
-    P3OUT = 0x00;\
-    P4OUT = 0x00;\
-    PJOUT = 0x00;\
-    P1DIR = ~PIN_RX_BITLINE;\
-    PJDIR = 0xFF;\
-    P2DIR = ~PIN_RX;\
     P3DIR = 0xFF;\
-    P4DIR = 0xFF;\
+    P3OUT = 0x00;\
+    P4DIR = 0xFC;\
+    P4OUT = 0x00;\
+    PJDIR = 0xFF;\
+    PJOUT = 0x00;\
 
 #endif /* ~__ASSEMBLER__ */
 
